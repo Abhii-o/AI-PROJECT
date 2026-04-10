@@ -1,0 +1,107 @@
+.lego-block-wrapper {
+  width: var(--node-size);
+  height: var(--node-size);
+  position: relative;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.lego-block {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  /* Top face is the main clickable area and displays colors */
+  background-color: var(--lego-empty-top);
+  border: 1px solid rgba(0,0,0,0.2);
+  /* The 3D drop shadow effect via box-shadow */
+  box-shadow: 
+    1px 1px 0 var(--lego-empty-side),
+    2px 2px 0 var(--lego-empty-side),
+    3px 3px 0 var(--lego-empty-side),
+    4px 4px 5px rgba(0,0,0,0.4);
+  transform: translate(-2px, -2px); /* Shift up to leave room for shadow */
+  transition: all 0.1s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* LEGO Stud (the little bump on top) */
+.lego-block::after {
+  content: "";
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background-color: inherit;
+  box-shadow: 
+    inset -1px -1px 2px rgba(0,0,0,0.3),
+    inset 1px 1px 2px rgba(255,255,255,0.4),
+    1px 1px 2px rgba(0,0,0,0.4);
+}
+
+.lego-block:active {
+  transform: translate(0px, 0px);
+  box-shadow: 
+    1px 1px 0 var(--lego-empty-side),
+    1px 1px 2px rgba(0,0,0,0.4);
+}
+
+/* Base Types */
+.block-type-empty {
+  background-color: var(--lego-empty-top);
+  box-shadow: 0px 0px 0 var(--lego-empty-side); /* Empty block has no height */
+  transform: translate(0, 0);
+}
+.block-type-empty::after { display: none; } /* No stud on empty floor */
+
+.block-type-wall {
+  background-color: var(--lego-wall-top);
+  box-shadow: 1px 1px 0 var(--lego-wall-side), 2px 2px 0 var(--lego-wall-side), 3px 3px 0 var(--lego-wall-side), 4px 4px 5px rgba(0,0,0,0.4);
+}
+.block-type-start {
+  background-color: var(--lego-start-top);
+  box-shadow: 1px 1px 0 var(--lego-start-side), 2px 2px 0 var(--lego-start-side), 3px 3px 0 var(--lego-start-side), 4px 4px 5px rgba(0,0,0,0.4);
+}
+.block-type-goal {
+  background-color: var(--lego-goal-top);
+  box-shadow: 1px 1px 0 var(--lego-goal-side), 2px 2px 0 var(--lego-goal-side), 3px 3px 0 var(--lego-goal-side), 4px 4px 5px rgba(0,0,0,0.4);
+}
+.block-type-danger {
+  background-color: var(--lego-danger-top);
+  box-shadow: 1px 1px 0 var(--lego-danger-side), 2px 2px 0 var(--lego-danger-side), 3px 3px 0 var(--lego-danger-side), 4px 4px 5px rgba(0,0,0,0.4);
+}
+.block-type-reward {
+  background-color: var(--lego-reward-top);
+  box-shadow: 1px 1px 0 var(--lego-reward-side), 2px 2px 0 var(--lego-reward-side), 3px 3px 0 var(--lego-reward-side), 4px 4px 5px rgba(0,0,0,0.4);
+}
+.block-type-trigger {
+  background-color: var(--lego-trigger-top);
+  box-shadow: 1px 1px 0 var(--lego-trigger-side), 2px 2px 0 var(--lego-trigger-side), 3px 3px 0 var(--lego-trigger-side), 4px 4px 5px rgba(0,0,0,0.4);
+}
+
+/* Visualization Overlays */
+.overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 10;
+  border-radius: 2px;
+  pointer-events: none;
+  animation: popNode 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.overlay.visited {
+  background-color: var(--overlay-visited);
+}
+
+.overlay.frontier {
+  background-color: var(--overlay-frontier);
+}
+
+.overlay.path {
+  background-color: var(--overlay-path);
+  box-shadow: 0 0 10px var(--overlay-path);
+  border-radius: 50%;
+  transform: scale(0.6);
+  z-index: 15;
+}
