@@ -63,14 +63,14 @@ export default function LegoGrid({
     if (isPlaying) {
       if (status === 'idle') {
         initSearch(`${startPos.r},${startPos.c}`, algorithm);
-        setTimeout(() => play(speed), 50);
+        play(speed);
       } else {
         play(speed);
       }
     } else {
       pause();
     }
-  }, [isPlaying, mode, speed, algorithm, status, initSearch, play, pause, startPos]);
+  }, [isPlaying, mode, speed, algorithm, status, startPos]);
 
   // Push latest log to global panel if provided
   useEffect(() => {

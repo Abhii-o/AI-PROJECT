@@ -78,13 +78,15 @@ export function useLegoSandbox({ isGoal, getNeighbors, heuristic, onReset }) {
   }, [status]);
 
   const play = useCallback((speed) => {
-    if (status === 'found' || status === 'not_found') return;
+    // Prevent overlapping intervals
+    if (status === 'found' || status === 'not_found' || status === 'playing') return;
     setStatus('playing');
     
     // speed is 1 to 100. Let's map it to ms delay:
     // speed 100 = 10ms, speed 1 = 300ms
     const delay = 310 - (speed * 3);
 
+    clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
       const hasMore = step();
       if (!hasMore) {

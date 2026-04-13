@@ -180,7 +180,7 @@ function App() {
           <button onClick={handleGenerateRandomMaze}>Random Obstacles</button>
           <div style={{display: 'flex', gap: '8px'}}>
             <button style={{flex: 1}} onClick={handleExport}>Export Level</button>
-            <label className="palette-btn" style={{flex: 1, margin: 0, padding: '8px 12px', justifyContent: 'center', backgroundColor: 'var(--bg-panel-light)'}}>
+            <label className="palette-btn" style={{flex: 1, margin: 0, padding: '8px 12px', justifyContent: 'center'}}>
               Import Level
               <input type="file" accept=".json" style={{display: 'none'}} onChange={handleImport} />
             </label>
